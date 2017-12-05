@@ -1,4 +1,5 @@
 import unittest
+from functools import reduce
 
 class unitest(unittest.TestCase):
     def testNone(self):
@@ -15,16 +16,6 @@ class unitest(unittest.TestCase):
         self.assertEqual(Solution().letterCombinations(Input),Output);
 
 class Solution():
-    def CombineLastNumber(self, ans, item):
-        temp = []
-        if ans == []:
-            for dicitem in item:
-                temp.append(dicitem)
-        else:
-            for ansitem in ans:
-                for dicitem in item:
-                    temp.append((ansitem + dicitem))
-        return temp
     def letterCombinations(self, digits):
         if digits == "":
             return []
@@ -38,10 +29,7 @@ class Solution():
                "8" : ["t","u","v"],
                "9" : ["w","x","y","z"],
                "0" : [" "]}
-        ans = []
-        for item in digits:
-            ans = self.CombineLastNumber(ans,dic[item])
-        return ans
+        return reduce(lambda ans, digit: [x + y for x in ans for y in dic[digit]], digits, [''])
 
 if __name__ == '__main__':
     unittest.main()

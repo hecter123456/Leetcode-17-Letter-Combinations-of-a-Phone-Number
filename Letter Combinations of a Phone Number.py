@@ -9,8 +9,22 @@ class unitest(unittest.TestCase):
         Input = "2"
         Output = ["a","b","c"]
         self.assertEqual(Solution().letterCombinations(Input),Output);
+    def testSample(self):
+        Input = "23"
+        Output = ["ad","ae","af","bd","be","bf","cd","ce","cf"]
+        self.assertEqual(Solution().letterCombinations(Input),Output);
 
 class Solution():
+    def CombineLastNumber(self, ans, item):
+        temp = []
+        if ans == []:
+            for dicitem in item:
+                temp.append(dicitem)
+        else:
+            for ansitem in ans:
+                for dicitem in item:
+                    temp.append((ansitem + dicitem))
+        return temp
     def letterCombinations(self, digits):
         if digits == "":
             return []
@@ -26,9 +40,7 @@ class Solution():
                "0" : [" "]}
         ans = []
         for item in digits:
-            for dicitem in dic[item]:
-                ans.append(dicitem)
-
+            ans = self.CombineLastNumber(ans,dic[item])
         return ans
 
 if __name__ == '__main__':
